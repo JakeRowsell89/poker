@@ -31,6 +31,8 @@ io.sockets.on('connection', (socket) => {
   io.emit('state', state)
   if (!state.gameInProgress) {
     // startGame and set state.gameInProgress = true
+    startGame()
+    state.gameInProgress = true
   }
 
   socket.on('disconnect', (reason) => {
@@ -70,6 +72,8 @@ async function startGame(){
   // - clears table of cards/money
   // - Cards get shuffled
   // - players with no money removed from game  
+  console.log('starting game')
+  await new Promise(resolve => setTimeout(resolve, 1000))
   return assignDealer()
 }
 
