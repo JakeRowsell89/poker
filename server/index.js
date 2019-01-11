@@ -2,6 +2,8 @@ const path = require('path');
 const express = require('express');
 const socket = require('socket.io');
 
+const { BASE_STATE } = require('./constants')
+
 const app = express();
 app.use(express.static(path.join(__dirname, '../public')));
 app.use('/modules', express.static(path.join(__dirname, '../node_modules')))
@@ -10,18 +12,9 @@ const server = app.listen(3000, () => {
   console.log("Server running");
 });
 
+
+const state = {...BASE_STATE}
 const io = socket(server);
-
-
-const state = {
-  gameInProgress: false,
-  dealerPosition: 0,
-  players: [],
-  deck: [],
-  discard: [],
-  communal: [],
-  pot: 0
-}
 
 io.sockets.on('connection', (socket) => {
   console.log('new client connected! Id: ' + socket.id);
