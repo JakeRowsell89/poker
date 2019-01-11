@@ -15,21 +15,69 @@ Prerequisites:
   - stack
   - hand
 
-Phases:
-- Start game
+Phases (betting phase omitted):
+  Start game phase:
+  preconditions:
+  - a player connected
+  - no game in progress
 
-- Dealer Assigned (should be ROTATED, maybe start with computer being dealer)
-- Blinds
-- Shuffle
-- Cards dealt
-- Betting phase
-- Flop
-- Betting phase
-- Turn
-- Betting phase
-- River
-- Betting phase
-- Showdown
+  phase actions
+  - A computer "player gets added"
+  - clears table of cards/money
+  - Cards get shuffled
+  - players with no money removed from game
+  end conditions
+  - When all phase actions have ended
+
+
+  Dealer assigned:
+  phase actions:
+  - Dealer button is moved 1 player down
+
+  end conditions
+  - When all phase actions have ended
+
+  Blinds phase:
+  phase actions
+  - Big/small blinds assigned
+  - Money taken from big/small blind players
+  end conditions
+  - Money has been collected for blinds
+  
+  Dealing phase:
+  phase actions
+  - cards given to players, 1 by 1
+  end conditions
+  - each player has two cards
+
+  Flop phase:
+  phase actions
+  - A card is burnt
+  - 3 cards are revealed
+  end conditions
+  - there are 3 shared cards on the table
+
+  Turn phase:
+  phase actions
+  - a card is burnt
+  - a card is revealed
+  end conditions
+  - there are 4 shared cards on the table
+
+  River phase:
+  phase actions
+  - a card is burnt
+  - a card is revealed
+  end conditions
+  - there are 4 shared cards on the table
+
+  Showdown phase:
+  phase actions
+  - highest hand combinations are calculated
+  - all hands are revealed
+  - Pot is given to winner
+  end conditions
+  - pot has been given to winner(s)
 
 Critical path:
 - Dealer assigned
@@ -48,3 +96,4 @@ WS events:
 - Turn -> server -> clients
 - River -> server -> clients
 - Showdown server -> clients (reveal all)
+

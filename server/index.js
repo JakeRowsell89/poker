@@ -15,17 +15,38 @@ const io = socket(server);
 
 io.sockets.on('connection', (socket) => {
   console.log('new clent connected! Id: ' + socket.id);
-  socket.on('mouseMoved', (mousePos) => {
-    socket.broadcast.emit('mouseMoved', mousePos);
+
+  state.players.push(playerFactory(socket.id))
+  io.emit('message', 'Player has joined')
+  io.emit('state', state)
+  if (!state.gameInProgress) {
+    // startGame and set state.gameInProgress = true
+  }
+  socket.on('*', (event) => {
+    console.log(event)
+    // socket.broadcast.emit('mouseMoved', mousePos);
   })
 });
 
 
+const state = {
+  gameInProgress: false,
+  players: [],
+  deck: [],
+  discard: [],
+  communal: [],
+  pot: 0
+}
 
-
-
-
-
+function playerFactory(id) {
+  return {
+    isDealer: false,
+    seatNumber: null,
+    hand: [],
+    stack: 0,
+    id: id,
+  }
+}
 
 
 
