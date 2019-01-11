@@ -1,0 +1,27 @@
+{
+  "name": "poker",
+  "version": "1.0.0",
+  "description": "1) hand strength comparison 2) actual sequence of the game 3) Betting rules/stack 4) communication between players/server 5) visuals 6) shuffling and dealing cards 7)",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.16.4",
+    "p5": "^0.7.2",
+    "socket.io": "^2.2.0",
+    "websocket": "^1.0.28",
+    "ws": "^6.1.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JakeRowsell89/poker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JakeRowsell89/poker/issues"
+  },
+  "homepage": "https://github.com/JakeRowsell89/poker#readme"
+}
