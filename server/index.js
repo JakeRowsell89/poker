@@ -13,22 +13,6 @@ const server = app.listen(3000, () => {
 const io = socket(server);
 
 
-io.sockets.on('connection', (socket) => {
-  console.log('new clent connected! Id: ' + socket.id);
-
-  state.players.push(playerFactory(socket.id))
-  io.emit('message', 'Player has joined')
-  io.emit('state', state)
-  if (!state.gameInProgress) {
-    // startGame and set state.gameInProgress = true
-  }
-  socket.on('*', (event) => {
-    console.log(event)
-    // socket.broadcast.emit('mouseMoved', mousePos);
-  })
-});
-
-
 const state = {
   gameInProgress: false,
   players: [],
@@ -37,6 +21,24 @@ const state = {
   communal: [],
   pot: 0
 }
+
+io.sockets.on('connection', (socket) => {
+  console.log('new client connected! Id: ' + socket.id);
+
+  state.players.push(playerFactory(socket.id))
+  io.emit('message', 'Player has joined')
+  io.emit('state', state)
+  if (!state.gameInProgress) {
+    // startGame and set state.gameInProgress = true
+  }
+
+  socket.on('disconnect', (reason) => {
+    io.emit('message', 'Player disconnected ' + socket.id)
+    state.players = state.players.filter(p => p.id !== socket.id)
+  })
+});
+
+
 
 function playerFactory(id) {
   return {

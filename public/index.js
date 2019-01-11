@@ -1,4 +1,5 @@
-let socket = io();
+const socket = io()
+
 socket.on('state', (state) => {
   console.log(state)
 })
