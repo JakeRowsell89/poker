@@ -13,7 +13,7 @@ const server = app.listen(3000, () => {
 });
 
 
-const state = {...BASE_STATE}
+const state = { ...BASE_STATE }
 const io = socket(server);
 
 io.sockets.on('connection', (socket) => {
@@ -59,7 +59,7 @@ function playerFactory(id) {
 //   },
 // ]
 
-async function startGame(){
+async function startGame() {
 
   // - A computer "player gets added"
   // - clears table of cards/money
@@ -70,14 +70,14 @@ async function startGame(){
   return assignDealer()
 }
 
-async function assignDealer(){
+async function assignDealer() {
   // players
 
   return takeBlinds()
 }
 
 async function takeBlinds() {
-  
+
   return deal()
 }
 
@@ -97,6 +97,14 @@ async function river() {
   return showdown()
 }
 
-async function showdown(){
+async function showdown() {
+  // phase actions
+  // - highest hand combinations are calculated
+  // - all hands are revealed
+  // - Pot is given to winner
+  // end conditions
+  // - pot has been given to winner(s)
+
+  
   return startGame()
 }
