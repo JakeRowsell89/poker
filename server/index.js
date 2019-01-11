@@ -15,6 +15,7 @@ const io = socket(server);
 
 const state = {
   gameInProgress: false,
+  dealerPosition: 0,
   players: [],
   deck: [],
   discard: [],
@@ -63,20 +64,42 @@ function playerFactory(id) {
 //   },
 // ]
 
-// async function startGame(){
+async function startGame(){
 
-//   // initialise
+  // - A computer "player gets added"
+  // - clears table of cards/money
+  // - Cards get shuffled
+  // - players with no money removed from game  
+  assignDealer()
+}
 
-//   await Promise.all(players.some(({connected}) => connected())
+async function assignDealer(){
+  // players
 
-//   return assignDealer()
-// }
+  takeBlinds()
+}
 
-// async function assignDealer(){
-//   // players
+async function takeBlinds() {
+  
+  deal()
+}
 
-//   await blinds()
-// }
+async function deal() {
+  flop()
+}
 
-// async function blinds(){
-// }
+async function flop() {
+  turn()
+}
+
+async function turn() {
+  river()
+}
+
+async function river() {
+  showdown()
+}
+
+async function showdown(){
+  startGame()
+}
