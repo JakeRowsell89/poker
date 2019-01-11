@@ -70,36 +70,36 @@ async function startGame(){
   // - clears table of cards/money
   // - Cards get shuffled
   // - players with no money removed from game  
-  assignDealer()
+  return assignDealer()
 }
 
 async function assignDealer(){
   // players
 
-  takeBlinds()
+  return takeBlinds()
 }
 
 async function takeBlinds() {
   
-  deal()
+  return deal()
 }
 
 async function deal() {
-  flop()
+  return flop()
 }
 
 async function flop() {
-  turn()
+  return turn()
 }
 
 async function turn() {
-  river()
+  return river()
 }
 
 async function river() {
-  showdown()
+  return showdown()
 }
 
 async function showdown(){
-  startGame()
+  return startGame()
 }
