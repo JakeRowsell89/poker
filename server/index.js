@@ -1,22 +1,10 @@
-const path = require('path');
-const express = require('express');
-const socket = require('socket.io');
-
+const io = require('socket.io')();
 const { BASE_STATE } = require('./constants')
 
-const app = express();
-app.use(express.static(path.join(__dirname, '../public')));
-app.use('/modules', express.static(path.join(__dirname, '../node_modules')))
-
-const server = app.listen(3000, () => {
-  console.log("Server running");
-});
-
-
 const state = {...BASE_STATE}
-const io = socket(server);
 
-io.sockets.on('connection', (socket) => {
+
+io.on('connection', (socket) => {
   console.log('new client connected! Id: ' + socket.id);
 
   state.players.push(playerFactory(socket.id))
@@ -28,11 +16,25 @@ io.sockets.on('connection', (socket) => {
     state.gameInProgress = true
   }
 
+  socket.on('subscribeToTimer', (interval) => {
+    console.log('client is subscribing to timer with interval ', interval);
+    setInterval(() => {
+      socket.emit('timer', new Date());
+    }, interval);
+  });
+
+
   socket.on('disconnect', (reason) => {
     io.emit('message', 'Player disconnected ' + socket.id)
     state.players = state.players.filter(p => p.id !== socket.id)
   })
 });
+
+
+const socketPort = 8000;
+io.listen(socketPort)
+console.log('listening on port', socketPort)
+
 
 
 
@@ -64,7 +66,7 @@ async function startGame(){
   // - A computer "player gets added"
   // - clears table of cards/money
   // - Cards get shuffled
-  // - players with no money removed from game  
+  // - players with no money removed from game
   console.log('starting game')
   await new Promise(resolve => setTimeout(resolve, 1000))
   return assignDealer()
@@ -77,7 +79,7 @@ async function assignDealer(){
 }
 
 async function takeBlinds() {
-  
+
   return deal()
 }
 
